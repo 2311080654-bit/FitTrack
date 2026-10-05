@@ -1,0 +1,123 @@
+/* =====================================================
+   FITTRACK - ANIMACIONES
+===================================================== */
+
+
+/* =====================================================
+   ENTRADA
+===================================================== */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+@keyframes pulse {
+
+    0% {
+        opacity: 1;
+
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.45;
+
+        transform: scale(0.85);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform: scale(1);
+    }
+
+}
+
+
+/* =====================================================
+   ELEMENTOS PRINCIPALES
+===================================================== */
+
+.hero-content {
+    animation:
+        fadeUp
+        0.8s
+        ease
+        both;
+}
+
+
+.hero-card {
+    animation:
+        fadeUp
+        0.8s
+        0.15s
+        ease
+        both;
+}
+
+
+.feature-card {
+    animation:
+        fadeUp
+        0.6s
+        ease
+        both;
+}
+
+
+/* =====================================================
+   BOTÓN
+===================================================== */
+
+.btn,
+.start-workout {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.btn-primary:hover,
+.start-workout:hover {
+    box-shadow:
+        0 10px 30px
+        rgba(182, 255, 0, 0.15);
+}
+
+
+/* =====================================================
+   ACCESIBILIDAD
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        scroll-behavior: auto !important;
+
+        transition-duration: 0.01ms !important;
+    }
+
+}

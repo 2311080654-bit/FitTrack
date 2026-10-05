@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "nombre": "Press de banca",
+        "categoria": "Pecho",
+        "nivel": "Intermedio",
+        "duracion": "10 min",
+        "calorias": 80,
+        "icono": "🏋️",
+        "descripcion": "Ejercicio enfocado principalmente en el desarrollo del pecho y los tríceps."
+    },
+    {
+        "id": 2,
+        "nombre": "Flexiones",
+        "categoria": "Pecho",
+        "nivel": "Principiante",
+        "duracion": "8 min",
+        "calorias": 60,
+        "icono": "💪",
+        "descripcion": "Ejercicio con el peso corporal para trabajar pecho, hombros y brazos."
+    },
+    {
+        "id": 3,
+        "nombre": "Dominadas",
+        "categoria": "Espalda",
+        "nivel": "Avanzado",
+        "duracion": "10 min",
+        "calorias": 90,
+        "icono": "🏋️",
+        "descripcion": "Ejercicio para desarrollar la espalda y fortalecer los brazos."
+    },
+    {
+        "id": 4,
+        "nombre": "Remo con mancuerna",
+        "categoria": "Espalda",
+        "nivel": "Intermedio",
+        "duracion": "10 min",
+        "calorias": 75,
+        "icono": "🏋️",
+        "descripcion": "Movimiento enfocado en la espalda utilizando una mancuerna."
+    },
+    {
+        "id": 5,
+        "nombre": "Sentadillas",
+        "categoria": "Piernas",
+        "nivel": "Principiante",
+        "duracion": "10 min",
+        "calorias": 100,
+        "icono": "🦵",
+        "descripcion": "Ejercicio fundamental para fortalecer piernas y glúteos."
+    },
+    {
+        "id": 6,
+        "nombre": "Zancadas",
+        "categoria": "Piernas",
+        "nivel": "Intermedio",
+        "duracion": "8 min",
+        "calorias": 85,
+        "icono": "🦵",
+        "descripcion": "Ejercicio unilateral para trabajar piernas y glúteos."
+    },
+    {
+        "id": 7,
+        "nombre": "Curl de bíceps",
+        "categoria": "Brazos",
+        "nivel": "Principiante",
+        "duracion": "8 min",
+        "calorias": 55,
+        "icono": "💪",
+        "descripcion": "Ejercicio dirigido principalmente al desarrollo de los bíceps."
+    },
+    {
+        "id": 8,
+        "nombre": "Fondos de tríceps",
+        "categoria": "Brazos",
+        "nivel": "Intermedio",
+        "duracion": "8 min",
+        "calorias": 65,
+        "icono": "💪",
+        "descripcion": "Ejercicio para fortalecer los tríceps y los hombros."
+    },
+    {
+        "id": 9,
+        "nombre": "Plancha",
+        "categoria": "Abdomen",
+        "nivel": "Principiante",
+        "duracion": "5 min",
+        "calorias": 40,
+        "icono": "🔥",
+        "descripcion": "Ejercicio isométrico para fortalecer el abdomen y el core."
+    },
+    {
+        "id": 10,
+        "nombre": "Mountain Climbers",
+        "categoria": "Cardio",
+        "nivel": "Intermedio",
+        "duracion": "6 min",
+        "calorias": 90,
+        "icono": "🏃",
+        "descripcion": "Ejercicio dinámico que combina trabajo cardiovascular y abdominal."
+    },
+    {
+        "id": 11,
+        "nombre": "Burpees",
+        "categoria": "Cardio",
+        "nivel": "Avanzado",
+        "duracion": "7 min",
+        "calorias": 110,
+        "icono": "🔥",
+        "descripcion": "Ejercicio de alta intensidad que involucra gran parte del cuerpo."
+    },
+    {
+        "id": 12,
+        "nombre": "Jumping Jacks",
+        "categoria": "Cardio",
+        "nivel": "Principiante",
+        "duracion": "5 min",
+        "calorias": 65,
+        "icono": "🏃",
+        "descripcion": "Ejercicio cardiovascular sencillo para aumentar la frecuencia cardíaca."
+    }
+]

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0b"
+    >
+
+    <title>Temporizador | FitTrack</title>
+
+    <link
+        rel="manifest"
+        href="../manifest.json"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="../img/icon-192.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/responsive.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/temporizador.css"
+    >
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="main-header">
+
+        <div class="header-container">
+
+            <a
+                href="../index.html"
+                class="logo"
+            >
+                <span class="logo-icon">💪</span>
+                <span>FitTrack</span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Abrir menú"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+            <nav
+                class="main-navigation"
+                id="mainNavigation"
+            >
+
+                <a
+                    href="../index.html"
+                    class="nav-link"
+                >
+                    Inicio
+                </a>
+
+                <a
+                    href="./ejercicios.html"
+                    class="nav-link"
+                >
+                    Ejercicios
+                </a>
+
+                <a
+                    href="./rutinas.html"
+                    class="nav-link"
+                >
+                    Rutinas
+                </a>
+
+                <a
+                    href="./progreso.html"
+                    class="nav-link"
+                >
+                    Progreso
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- TEMPORIZADOR -->
+    <main class="timer-page">
+
+        <section class="timer-header">
+
+            <span class="section-badge">
+                ⏱️ ENTRENAMIENTO
+            </span>
+
+            <h1 id="routineName">
+                Cargando rutina...
+            </h1>
+
+            <p id="routineDescription">
+                Preparando tu entrenamiento.
+            </p>
+
+        </section>
+
+
+        <section class="timer-layout">
+
+            <!-- TEMPORIZADOR -->
+            <div class="timer-card">
+
+                <div class="timer-status">
+                    <span id="timerStatus">
+                        LISTO
+                    </span>
+                </div>
+
+
+                <div
+                    class="timer-display"
+                    id="timerDisplay"
+                >
+                    00:30
+                </div>
+
+
+                <div class="timer-label">
+                    TIEMPO RESTANTE
+                </div>
+
+
+                <div class="timer-progress">
+
+                    <div
+                        class="timer-progress-bar"
+                        id="timerProgressBar"
+                    ></div>
+
+                </div>
+
+
+                <div class="timer-buttons">
+
+                    <button
+                        class="timer-button primary"
+                        id="startTimer"
+                    >
+                        ▶ Comenzar
+                    </button>
+
+                    <button
+                        class="timer-button secondary"
+                        id="pauseTimer"
+                    >
+                        ⏸ Pausar
+                    </button>
+
+                    <button
+                        class="timer-button secondary"
+                        id="resetTimer"
+                    >
+                        ↻ Reiniciar
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- INFORMACIÓN -->
+            <aside class="workout-card">
+
+                <div class="workout-card-header">
+
+                    <div>
+                        <span class="small-label">
+                            EJERCICIO ACTUAL
+                        </span>
+
+                        <h2 id="currentExercise">
+                            Preparado
+                        </h2>
+                    </div>
+
+                    <div
+                        class="exercise-number"
+                        id="exerciseNumber"
+                    >
+                        1
+                    </div>
+
+                </div>
+
+
+                <div class="current-exercise-icon">
+                    🏋️
+                </div>
+
+
+                <p
+                    class="current-exercise-description"
+                    id="currentExerciseDescription"
+                >
+                    Presiona comenzar para iniciar
+                    tu entrenamiento.
+                </p>
+
+
+                <div class="workout-stats">
+
+                    <div class="workout-stat">
+
+                        <span>
+                            EJERCICIOS
+                        </span>
+
+                        <strong id="totalExercises">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="workout-stat">
+
+                        <span>
+                            CALORÍAS
+                        </span>
+
+                        <strong id="totalCalories">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="workout-stat">
+
+                        <span>
+                            NIVEL
+                        </span>
+
+                        <strong id="routineLevel">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="next-exercise"
+                    id="nextExercise"
+                >
+                    Siguiente ejercicio →
+                </button>
+
+            </aside>
+
+        </section>
+
+
+        <!-- LISTA -->
+        <section class="exercise-list-section">
+
+            <div class="section-title-row">
+
+                <div>
+
+                    <span class="small-label">
+                        PLAN DE ENTRENAMIENTO
+                    </span>
+
+                    <h2>
+                        Ejercicios
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="exercise-list"
+                id="exerciseList"
+            >
+            </div>
+
+        </section>
+
+
+        <!-- FINALIZACIÓN -->
+        <section
+            class="workout-complete"
+            id="workoutComplete"
+            hidden
+        >
+
+            <div class="complete-icon">
+                🎉
+            </div>
+
+            <h2>
+                ¡Entrenamiento completado!
+            </h2>
+
+            <p>
+                Excelente trabajo. Tu entrenamiento
+                ha sido registrado.
+            </p>
+
+            <div class="complete-actions">
+
+                <a
+                    href="./rutinas.html"
+                    class="timer-button secondary"
+                >
+                    ← Ver rutinas
+                </a>
+
+                <a
+                    href="./progreso.html"
+                    class="timer-button primary"
+                >
+                    Ver progreso →
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="main-footer">
+
+        <div class="footer-container">
+
+            <div class="footer-brand">
+
+                <span>
+                    💪 FitTrack
+                </span>
+
+                <p>
+                    Convierte tu esfuerzo en resultados.
+                </p>
+
+            </div>
+
+            <div class="footer-info">
+
+                <p>
+                    © 2026 FitTrack
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="../js/main.js"></script>
+
+    <script src="../js/temporizador.js"></script>
+
+</body>
+
+</html>

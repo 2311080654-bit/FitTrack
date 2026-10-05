@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0b"
+    >
+
+    <title>Rutinas | FitTrack</title>
+
+    <link
+        rel="manifest"
+        href="../manifest.json"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="../img/icon-192.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="../img/icon-192.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/responsive.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/rutinas.css"
+    >
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="main-header">
+
+        <div class="header-container">
+
+            <a
+                href="../index.html"
+                class="logo"
+            >
+                <span class="logo-icon">💪</span>
+                <span>FitTrack</span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Abrir menú"
+                aria-expanded="false"
+            >
+                ☰
+            </button>
+
+            <nav
+                class="main-navigation"
+                id="mainNavigation"
+            >
+
+                <a
+                    href="../index.html"
+                    class="nav-link"
+                >
+                    Inicio
+                </a>
+
+                <a
+                    href="./ejercicios.html"
+                    class="nav-link"
+                >
+                    Ejercicios
+                </a>
+
+                <a
+                    href="./rutinas.html"
+                    class="nav-link active"
+                >
+                    Rutinas
+                </a>
+
+                <a
+                    href="./progreso.html"
+                    class="nav-link"
+                >
+                    Progreso
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTENIDO -->
+    <main class="routine-page">
+
+        <section class="routine-header">
+
+            <span class="section-badge">
+                🏋️ ENTRENAMIENTO
+            </span>
+
+            <h1>
+                Mis <span>Rutinas</span>
+            </h1>
+
+            <p>
+                Elige una rutina y comienza a entrenar.
+                Encuentra entrenamientos adaptados a
+                diferentes objetivos y niveles.
+            </p>
+
+        </section>
+
+
+        <!-- FILTROS -->
+        <section class="routine-filters">
+
+            <button
+                class="routine-filter active"
+                data-category="Todos"
+            >
+                Todas
+            </button>
+
+            <button
+                class="routine-filter"
+                data-category="Full Body"
+            >
+                Full Body
+            </button>
+
+            <button
+                class="routine-filter"
+                data-category="Fuerza"
+            >
+                Fuerza
+            </button>
+
+            <button
+                class="routine-filter"
+                data-category="Piernas"
+            >
+                Piernas
+            </button>
+
+            <button
+                class="routine-filter"
+                data-category="Cardio"
+            >
+                Cardio
+            </button>
+
+            <button
+                class="routine-filter"
+                data-category="Abdomen"
+            >
+                Abdomen
+            </button>
+
+            <button
+                class="routine-filter"
+                data-category="Express"
+            >
+                Express
+            </button>
+
+        </section>
+
+
+        <!-- GRID -->
+        <section
+            class="routine-grid"
+            id="routineGrid"
+        >
+        </section>
+
+
+        <!-- SIN RESULTADOS -->
+        <section
+            class="empty-routines"
+            id="emptyRoutines"
+            hidden
+        >
+
+            <div class="empty-icon">
+                🔎
+            </div>
+
+            <h2>
+                No encontramos rutinas
+            </h2>
+
+            <p>
+                Intenta seleccionar otra categoría.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+
+        <div class="footer-container">
+
+            <div class="footer-brand">
+                <span>💪 FitTrack</span>
+
+                <p>
+                    Convierte tu esfuerzo en resultados.
+                </p>
+            </div>
+
+            <div class="footer-info">
+                <p>
+                    © 2026 FitTrack
+                </p>
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="../js/main.js"></script>
+
+    <script src="../js/rutinas.js"></script>
+
+</body>
+
+</html>
