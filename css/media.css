@@ -1,0 +1,10 @@
+.exercise-media { margin: 18px 0; }
+.exercise-media-images { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.exercise-media-images figure:only-child { grid-column: 1 / -1; }
+.exercise-media figure { margin: 0; min-width: 0; }
+.exercise-media img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: contain; background: #f4f4f4; border-radius: 12px; }
+.exercise-media figcaption { font-size: 12px; text-align: center; color: var(--text-secondary); }
+.media-video-button { padding: 10px 14px; margin: 12px 10px 12px 0; color: #101010; background: var(--accent); border: 0; border-radius: 8px; font: inherit; font-weight: bold; cursor: pointer; }
+.exercise-media a { display: inline-block; font-size: 13px; text-decoration: underline; }
+.exercise-media iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 12px; margin: 8px 0; }
+.exercise-media small { display: block; color: var(--text-secondary); font-size: 11px; margin-top: 6px; }

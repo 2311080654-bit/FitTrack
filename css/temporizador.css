@@ -593,4 +593,4 @@
             repeat(3, 1fr);
     }
 
-}
+}.routine-selector { max-width: 100%; padding: 12px; margin-top: 20px; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border); border-radius: 10px; font: inherit; }

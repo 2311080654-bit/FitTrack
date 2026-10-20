@@ -52,34 +52,53 @@ document.addEventListener(
            CARGAR DATOS
         ===================================== */
 
-        loadProgress();
+        const status = document.createElement("p");
+        status.setAttribute("role", "status");
+        status.className = "progress-status";
+        status.textContent = "Cargando tu historial…";
+        const retry = document.createElement("button");
+        retry.textContent = "Reintentar";
+        retry.className = "btn";
+        retry.hidden = true;
+        document.querySelector(".progress-header").append(status, retry);
+        let refreshing = false;
+        async function refresh() {
+            if (refreshing) return;
+            refreshing = true;
+            retry.hidden = true;
+            clearHistory.disabled = true;
+            status.textContent = "Cargando tu historial…";
+            const timeout = setTimeout(() => {
+                status.textContent = "Firebase está tardando en responder. Comprueba tu conexión y que el acceso anónimo esté activado.";
+            }, 15000);
+            try {
+                await loadProgress();
+                status.textContent = "Historial actualizado.";
+                clearHistory.disabled = false;
+            }
+            catch (error) {
+                status.textContent = error.message;
+                retry.hidden = false;
+                [totalWorkouts, totalMinutes, totalCalories, currentStreak].forEach(node => { node.textContent = "—"; });
+                lastWorkout.textContent = "No se pudo consultar el último entrenamiento. Pulsa Reintentar.";
+                emptyProgress.hidden = true;
+            }
+            finally { clearTimeout(timeout); refreshing = false; }
+        }
+        retry.addEventListener("click", refresh);
+        showEmptyState();
+        emptyProgress.hidden = true;
+        [totalWorkouts, totalMinutes, totalCalories, currentStreak].forEach(node => { node.textContent = "…"; });
+        lastWorkout.textContent = "Consultando tu historial…";
+        refresh();
 
 
         /* =====================================
            OBTENER ENTRENAMIENTOS
         ===================================== */
 
-        function getWorkouts() {
-
-            try {
-
-                return JSON.parse(
-                    localStorage.getItem(
-                        "fittrack_workouts"
-                    )
-                ) || [];
-
-            } catch (error) {
-
-                console.error(
-                    "Error leyendo LocalStorage:",
-                    error
-                );
-
-                return [];
-
-            }
-
+        async function getWorkouts() {
+            return FitTrackDB.list();
         }
 
 
@@ -87,10 +106,10 @@ document.addEventListener(
            CARGAR PROGRESO
         ===================================== */
 
-        function loadProgress() {
+        async function loadProgress() {
 
             const workouts =
-                getWorkouts();
+                await getWorkouts();
 
 
             if (workouts.length === 0) {
@@ -864,10 +883,11 @@ document.addEventListener(
 
         clearHistory.addEventListener(
             "click",
-            () => {
+            async () => {
 
+                try {
                 const workouts =
-                    getWorkouts();
+                    await getWorkouts();
 
 
                 if (
@@ -892,13 +912,12 @@ document.addEventListener(
                 }
 
 
-                localStorage.removeItem(
-                    "fittrack_workouts"
-                );
+                await FitTrackDB.clear();
 
 
-                loadProgress();
+                await loadProgress();
 
+                } catch (error) { alert(error.message); }
             }
         );
 

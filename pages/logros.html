@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0b0b"><title>Tus logros | FitTrack</title>
+<link rel="manifest" href="../manifest.json"><link rel="icon" href="../img/pwa-192.png">
+<link rel="stylesheet" href="../css/style.css"><link rel="stylesheet" href="../css/responsive.css"><link rel="stylesheet" href="../css/tools.css"></head>
+<body><header class="main-header"><div class="header-container"><a class="logo" href="../index.html">?? FitTrack</a>
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir men?" aria-expanded="false">?</button>
+<nav class="main-navigation" id="mainNavigation"><a class="nav-link" href="../index.html">Inicio</a><a class="nav-link" href="./ejercicios.html">Ejercicios</a><a class="nav-link" href="./rutinas.html">Rutinas</a><a class="nav-link" href="./temporizador.html">Temporizador</a><a class="nav-link" href="./progreso.html">Progreso</a><a class="nav-link" href="./calculadora.html">Calculadora</a><a class="nav-link" href="./logros.html">Logros</a></nav></div></header>
+<main class="tools-page"><span class="section-label">FITTRACK</span><h1>Tus logros</h1><p>Tus objetivos se actualizan con los entrenamientos guardados.</p><p id="achievementStatus" role="status">Cargando tus logros?</p>
+<button id="reloadAchievements" class="btn" type="button">Actualizar logros</button><div id="achievementGrid" class="tools-grid"></div>
+<a class="btn btn-primary" href="./rutinas.html">Entrenar ahora ?</a></main>
+<script src="../js/main.js"></script><script src="../js/firebase-config.js"></script><script src="../js/database.js"></script><script src="../js/stats.js"></script><script src="../js/logros.js"></script></body></html>

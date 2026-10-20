@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0b0b"><title>Calculadora de intervalos | FitTrack</title>
+<link rel="manifest" href="../manifest.json"><link rel="icon" href="../img/pwa-192.png">
+<link rel="stylesheet" href="../css/style.css"><link rel="stylesheet" href="../css/responsive.css"><link rel="stylesheet" href="../css/tools.css"></head>
+<body><header class="main-header"><div class="header-container"><a class="logo" href="../index.html">?? FitTrack</a>
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir men?" aria-expanded="false">?</button>
+<nav class="main-navigation" id="mainNavigation"><a class="nav-link" href="../index.html">Inicio</a><a class="nav-link" href="./ejercicios.html">Ejercicios</a><a class="nav-link" href="./rutinas.html">Rutinas</a><a class="nav-link" href="./temporizador.html">Temporizador</a><a class="nav-link" href="./progreso.html">Progreso</a><a class="nav-link" href="./calculadora.html">Calculadora</a><a class="nav-link" href="./logros.html">Logros</a></nav></div></header>
+<main class="tools-page"><span class="section-label">FITTRACK</span><h1>Calculadora de intervalos</h1><p>Planifica tus intervalos de ejercicio y descanso antes de entrenar.</p>
+<form id="intervalForm" class="tool-card"><label>Ejercicios por ronda<input id="exerciseCount" type="number" min="1" max="100" value="5" required></label>
+<label>Rondas<input id="roundCount" type="number" min="1" max="100" value="3" required></label>
+<label>Trabajo por ejercicio (segundos)<input id="workSeconds" type="number" min="1" max="3600" value="30" required></label>
+<label>Descanso entre ejercicios (segundos)<input id="restSeconds" type="number" min="0" max="3600" value="15" required></label>
+<button class="btn btn-primary" type="submit">Calcular duraci?n</button><button class="btn" type="reset">Restablecer</button></form>
+<section class="tool-card" id="calculationResult" aria-live="polite" hidden></section>
+<a class="btn btn-primary" href="./rutinas.html">Elegir rutina para entrenar ?</a></main>
+<script src="../js/main.js"></script><script src="../js/calculadora.js"></script></body></html>

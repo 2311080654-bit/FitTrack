@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0b0b"><title>Mi cuenta | FitTrack</title>
+<link rel="manifest" href="../manifest.json"><link rel="icon" href="../img/pwa-192.png">
+<link rel="stylesheet" href="../css/style.css"><link rel="stylesheet" href="../css/responsive.css"><link rel="stylesheet" href="../css/tools.css">
+</head>
+<body>
+<header class="main-header"><div class="header-container">
+<a class="logo" href="../index.html">FitTrack</a>
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+<nav class="main-navigation" id="mainNavigation"><a class="nav-link" href="../index.html">Inicio</a><a class="nav-link" href="./rutinas.html">Rutinas</a><a class="nav-link" href="./progreso.html">Progreso</a></nav>
+</div></header>
+<main class="tools-page account-page">
+<span class="section-label">TU CUENTA FITTRACK</span><h1 id="accountTitle">Iniciar sesión</h1>
+<p>Accede a tu historial desde tus otros dispositivos.</p>
+<p id="authStatus" role="status" aria-live="polite">Conectando con Firebase…</p>
+<section id="accountDetails" class="tool-card" hidden><h2>Tu sesión está activa</h2><p id="accountEmail"></p>
+<a class="btn btn-primary" href="./progreso.html">Ver mi progreso</a><button id="logoutButton" class="btn" type="button">Cerrar sesión</button></section>
+<section id="authPanel" class="tool-card" hidden>
+<div class="account-actions"><button id="loginMode" class="btn" type="button" aria-pressed="true">Iniciar sesión</button><button id="registerMode" class="btn" type="button" aria-pressed="false">Crear cuenta</button></div>
+<p>Al crear una cuenta conservarás el historial de tu sesión de invitado. Al entrar en una cuenta existente verás el historial de esa cuenta.</p>
+<form id="authForm">
+<label>Correo electrónico<input id="email" type="email" autocomplete="username" maxlength="254" required></label>
+<label>Contraseña<input id="password" type="password" autocomplete="current-password" minlength="6" maxlength="128" required></label>
+<label id="confirmLabel" hidden>Confirmar contraseña<input id="confirmPassword" type="password" autocomplete="new-password" minlength="6" maxlength="128" disabled></label>
+<button id="authSubmit" class="btn btn-primary" type="submit">Entrar</button>
+<button id="resetPassword" class="btn" type="button">Olvidé mi contraseña</button>
+</form></section>
+<a class="nav-link" href="./rutinas.html">Continuar entrenando</a>
+<noscript>Activa JavaScript para iniciar sesión.</noscript>
+</main>
+<script src="../js/firebase-config.js"></script><script src="../js/main.js"></script><script src="../js/login.js"></script>
+</body></html>

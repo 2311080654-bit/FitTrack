@@ -97,6 +97,9 @@ document.addEventListener(
         let timerInterval = null;
 
         let timerRunning = false;
+        let workoutFinished = false;
+        let exerciseSeconds = 30;
+        let deadline = 0;
 
 
         /* =====================================
@@ -169,7 +172,7 @@ document.addEventListener(
                         routine =>
                             routine.id ===
                             routineId
-                    );
+                    ) || (!params.has("routine") ? routines[0] : null);
 
 
                 if (!selectedRoutine) {
@@ -180,6 +183,27 @@ document.addEventListener(
                 }
 
 
+                const selector = document.createElement("select");
+                selector.setAttribute("aria-label", "Seleccionar rutina");
+                selector.className = "routine-selector";
+                routines.forEach(routine => {
+                    const option = document.createElement("option");
+                    option.value = routine.id;
+                    option.textContent = routine.nombre;
+                    option.selected = routine.id === selectedRoutine.id;
+                    selector.appendChild(option);
+                });
+                selector.addEventListener("change", () => {
+                    if (timerRunning && !confirm("¿Cambiar de rutina y descartar la sesión actual?")) {
+                        selector.value = selectedRoutine.id;
+                        return;
+                    }
+                    location.href = `./temporizador.html?routine=${selector.value}`;
+                });
+                routineDescription.after(selector);
+                const minutes = Number(String(selectedRoutine.duracion).match(/\d+/)?.[0]) || 1;
+                exerciseSeconds = Math.max(1, Math.round(minutes * 60 / selectedRoutine.ejercicios.length));
+                timeRemaining = totalTime = exerciseSeconds;
                 prepareWorkout();
 
 
@@ -363,6 +387,11 @@ document.addEventListener(
             currentExerciseDescription.textContent =
                 exercise.descripcion;
 
+            const media = document.querySelector("#currentExerciseMedia");
+            if (media && window.FitTrackMedia) {
+                media.replaceChildren(FitTrackMedia.create(exercise, pauseWorkoutTimer));
+            }
+
 
             exerciseNumber.textContent =
                 `${currentExerciseIndex + 1}/${selectedRoutine.ejercicios.length}`;
@@ -393,12 +422,13 @@ document.addEventListener(
 
         function startWorkoutTimer() {
 
-            if (timerRunning) {
+            if (timerRunning || workoutFinished || !selectedRoutine) {
                 return;
             }
 
 
             timerRunning = true;
+            deadline = Date.now() + timeRemaining * 1000;
 
 
             timerStatus.textContent =
@@ -416,9 +446,10 @@ document.addEventListener(
                             timeRemaining > 0
                         ) {
 
-                            timeRemaining--;
+                            timeRemaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
 
                             updateTimerDisplay();
+                            if (timeRemaining === 0) completeCurrentExercise();
 
                         } else {
 
@@ -468,6 +499,7 @@ document.addEventListener(
         ===================================== */
 
         function resetWorkoutTimer() {
+            if (workoutFinished || !selectedRoutine) return;
 
             clearInterval(
                 timerInterval
@@ -479,9 +511,9 @@ document.addEventListener(
             timerRunning = false;
 
 
-            timeRemaining = 30;
+            timeRemaining = exerciseSeconds;
 
-            totalTime = 30;
+            totalTime = exerciseSeconds;
 
 
             timerStatus.textContent =
@@ -501,6 +533,7 @@ document.addEventListener(
         ===================================== */
 
         function completeCurrentExercise() {
+            if (workoutFinished || !selectedRoutine) return;
 
             clearInterval(
                 timerInterval
@@ -520,9 +553,9 @@ document.addEventListener(
                 currentExerciseIndex++;
 
 
-                timeRemaining = 30;
+                timeRemaining = exerciseSeconds;
 
-                totalTime = 30;
+                totalTime = exerciseSeconds;
 
 
                 timerStatus.textContent =
@@ -536,7 +569,7 @@ document.addEventListener(
 
                 setTimeout(
                     () => {
-
+                        if (workoutFinished) return;
                         timerStatus.textContent =
                             "LISTO";
 
@@ -548,6 +581,7 @@ document.addEventListener(
             } else {
 
                 finishWorkout();
+                return;
 
             }
 
@@ -562,6 +596,7 @@ document.addEventListener(
         ===================================== */
 
         function goToNextExercise() {
+            if (workoutFinished || !selectedRoutine) return;
 
             clearInterval(
                 timerInterval
@@ -580,9 +615,9 @@ document.addEventListener(
 
                 currentExerciseIndex++;
 
-                timeRemaining = 30;
+                timeRemaining = exerciseSeconds;
 
-                totalTime = 30;
+                totalTime = exerciseSeconds;
 
 
                 timerStatus.textContent =
@@ -646,7 +681,11 @@ document.addEventListener(
            FINALIZAR ENTRENAMIENTO
         ===================================== */
 
-        function finishWorkout() {
+        async function finishWorkout() {
+            if (workoutFinished) return;
+            workoutFinished = true;
+            pauseTimer.disabled = true;
+            resetTimer.disabled = true;
 
             clearInterval(
                 timerInterval
@@ -676,7 +715,29 @@ document.addEventListener(
             nextExercise.disabled = true;
 
 
-            saveWorkout();
+            try {
+                await saveWorkout();
+            } catch (error) {
+                workoutComplete.hidden = false;
+                const message = workoutComplete.querySelector("p");
+                message.textContent = error.message;
+                const retry = document.createElement("button");
+                retry.className = "timer-button primary";
+                retry.textContent = "Reintentar guardar";
+                retry.onclick = async () => {
+                    retry.disabled = true;
+                    try {
+                        await saveWorkout();
+                        message.textContent = "Tu entrenamiento ha sido registrado.";
+                        retry.remove();
+                    } catch (error) {
+                        message.textContent = error.message;
+                        retry.disabled = false;
+                    }
+                };
+                workoutComplete.appendChild(retry);
+                return;
+            }
 
 
             workoutComplete.hidden =
@@ -694,17 +755,11 @@ document.addEventListener(
            GUARDAR ENTRENAMIENTO
         ===================================== */
 
-        function saveWorkout() {
+        let completedWorkout;
 
-            const savedWorkouts =
-                JSON.parse(
-                    localStorage.getItem(
-                        "fittrack_workouts"
-                    )
-                ) || [];
+        async function saveWorkout() {
 
-
-            const workout = {
+            const workout = completedWorkout || {
 
                 id: Date.now(),
 
@@ -729,18 +784,8 @@ document.addEventListener(
             };
 
 
-            savedWorkouts.push(
-                workout
-            );
-
-
-            localStorage.setItem(
-                "fittrack_workouts",
-                JSON.stringify(
-                    savedWorkouts
-                )
-            );
-
+            completedWorkout = workout;
+            await FitTrackDB.save(workout);
 
             console.log(
                 "FitTrack: entrenamiento guardado.",

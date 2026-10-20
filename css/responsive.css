@@ -1,0 +1,20 @@
+﻿[hidden] { display: none !important; }
+.main-header { position: sticky; top: 0; z-index: 1000; background: rgba(10,10,10,.96); border-bottom: 1px solid var(--border); }
+.main-navigation { flex-wrap: wrap; gap: 16px; }
+button:disabled { opacity: .55; cursor: not-allowed; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (max-width: 900px) {
+    .header-container { position: relative; flex-wrap: wrap; }
+    .menu-toggle { display: block; }
+    .main-navigation { display: none; width: 100%; padding: 16px 0; flex-direction: column; align-items: stretch; }
+    .main-navigation.open { display: flex; }
+    .features-grid, .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero, .hero-container, .workout-container { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+    .features-grid, .stats-grid, .routine-grid, .exercise-grid, .timer-layout, .progress-layout { grid-template-columns: 1fr; }
+    .hero-title { font-size: 2.6rem; }
+    .hero-buttons { flex-wrap: wrap; }
+    .footer-container { flex-direction: column; gap: 20px; }
+}
+.install-help { width: min(100% - 40px, 1200px); margin: 16px auto; padding: 16px; border: 1px solid var(--accent); border-radius: 12px; }

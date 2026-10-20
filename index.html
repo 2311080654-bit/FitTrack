@@ -31,13 +31,13 @@
     <!-- Icono -->
     <link
         rel="icon"
-        type="image/jpeg"
-        href="./img/icon-192.jpg"
+        type="image/png"
+        href="./img/pwa-192.png"
     >
 
     <link
         rel="apple-touch-icon"
-        href="./img/icon-192.jpg"
+        href="./img/pwa-192.png"
     >
 
     <!-- CSS -->
@@ -172,9 +172,8 @@
                         id="installAppBtn"
                         class="btn btn-secondary"
                         type="button"
-                        hidden
                     >
-                        📱 Instalar FitTrack
+                        Descargar app
                     </button>
 
                 </div>
@@ -343,7 +342,7 @@
                         y descanso.
                     </p>
 
-                    <a href="#" class="feature-link">
+                    <a href="./pages/temporizador.html" class="feature-link">
                         Abrir temporizador →
                     </a>
 
@@ -365,7 +364,7 @@
                         minutos y racha.
                     </p>
 
-                    <a href="#" class="feature-link">
+                    <a href="./pages/progreso.html" class="feature-link">
                         Ver progreso →
                     </a>
 
@@ -387,7 +386,7 @@
                         tu entrenamiento.
                     </p>
 
-                    <a href="#" class="feature-link">
+                    <a href="./pages/calculadora.html" class="feature-link">
                         Abrir calculadora →
                     </a>
 
@@ -409,7 +408,7 @@
                         nuevos logros.
                     </p>
 
-                    <a href="#" class="feature-link">
+                    <a href="./pages/logros.html" class="feature-link">
                         Ver logros →
                     </a>
 
@@ -450,6 +449,7 @@
 
                     <button
                         class="btn btn-primary"
+                        id="beginWorkout"
                         type="button"
                     >
                         🚀 Comenzar entrenamiento
@@ -458,7 +458,8 @@
                 </div>
 
 
-                <div class="workout-preview">
+                <div class="workout-preview" aria-label="Ejemplo de una rutina">
+                    <span>Vista de ejemplo</span>
 
                     <div class="preview-header">
 
@@ -651,6 +652,10 @@
     </footer>
 
 
+    <script src="./js/firebase-config.js"></script>
+    <script src="./js/database.js"></script>
+    <script src="./js/stats.js"></script>
+    <script src="./js/home.js"></script>
     <!-- JavaScript -->
 
     <script

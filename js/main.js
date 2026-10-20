@@ -1,6 +1,14 @@
 document.addEventListener(
     "DOMContentLoaded",
     () => {
+        const navigation = document.querySelector("#mainNavigation");
+        if (navigation) {
+            const link = document.createElement("a");
+            link.href = window.location.pathname.includes("/pages/") ? "./login.html" : "./pages/login.html";
+            link.className = "nav-link";
+            link.textContent = "Mi cuenta";
+            navigation.appendChild(link);
+        }
 
         console.log(
             "FitTrack: aplicación iniciada correctamente."
@@ -162,172 +170,69 @@ async function registerServiceWorker() {
 // ============================================
 
 function setupInstallButton() {
-
-    const installButton =
-        document.querySelector(
-            "#installAppBtn"
-        );
-
-    const installMessage =
-        document.querySelector(
-            "#installMessage"
-        );
-
-
-    let deferredPrompt = null;
-
-
-    const isStandalone =
-        window.matchMedia(
-            "(display-mode: standalone)"
-        ).matches ||
-        window.navigator.standalone === true;
-
-
-    if (isStandalone) {
-
-        if (installButton) {
-
-            installButton.hidden = true;
-
-        }
-
-        if (installMessage) {
-
-            installMessage.textContent =
-                "FitTrack ya está instalada en este dispositivo. 💪";
-
-        }
-
+    let button = document.querySelector("#installAppBtn");
+    let message = document.querySelector("#installMessage");
+    if (!button) {
+        button = document.createElement("button");
+        button.id = "installAppBtn";
+        button.type = "button";
+        button.className = "btn btn-secondary";
+        document.querySelector("#mainNavigation")?.appendChild(button);
     }
-
-
-    window.addEventListener(
-        "beforeinstallprompt",
-        event => {
-
-            console.log(
-                "FitTrack: instalación disponible."
-            );
-
-
-            event.preventDefault();
-
-            deferredPrompt = event;
-
-
-            if (installButton) {
-
-                installButton.hidden = false;
-
-            }
-
-
-            if (installMessage) {
-
-                installMessage.textContent =
-                    "FitTrack está lista para instalar.";
-
-            }
-
-        }
-    );
-
-
-    if (installButton) {
-
-        installButton.addEventListener(
-            "click",
-            async () => {
-
-                if (!deferredPrompt) {
-
-                    if (installMessage) {
-
-                        installMessage.textContent =
-                            "La instalación todavía no está disponible.";
-
-                    }
-
-                    return;
-
-                }
-
-
-                deferredPrompt.prompt();
-
-
-                const result =
-                    await deferredPrompt.userChoice;
-
-
-                console.log(
-                    "FitTrack instalación:",
-                    result.outcome
-                );
-
-
-                if (
-                    result.outcome ===
-                    "accepted"
-                ) {
-
-                    if (installMessage) {
-
-                        installMessage.textContent =
-                            "¡FitTrack se está instalando! 💪";
-
-                    }
-
-                } else {
-
-                    if (installMessage) {
-
-                        installMessage.textContent =
-                            "La instalación fue cancelada.";
-
-                    }
-
-                }
-
-
-                deferredPrompt = null;
-
-                installButton.hidden = true;
-
-            }
-        );
-
+    if (!message) {
+        message = document.createElement("p");
+        message.id = "installMessage";
+        message.className = "install-help";
+        message.hidden = true;
+        document.querySelector("header")?.after(message);
     }
-
-
-    window.addEventListener(
-        "appinstalled",
-        () => {
-
-            console.log(
-                "FitTrack: aplicación instalada."
-            );
-
-
-            deferredPrompt = null;
-
-
-            if (installButton) {
-
-                installButton.hidden = true;
-
+    message.setAttribute("role", "status");
+    message.setAttribute("aria-live", "polite");
+    button.hidden = false;
+    button.textContent = "Descargar app";
+    let prompt = null;
+    const installed = () => {
+        prompt = null;
+        button.disabled = true;
+        button.textContent = "App instalada";
+        message.hidden = false;
+        message.textContent = "FitTrack ya se abre como una app en este dispositivo.";
+    };
+    if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true) installed();
+    window.addEventListener("beforeinstallprompt", event => {
+        event.preventDefault();
+        prompt = event;
+        button.disabled = false;
+        button.textContent = "Descargar app";
+        message.hidden = false;
+        message.textContent = "Pulsa Descargar app para instalar FitTrack en este dispositivo.";
+    });
+    button.addEventListener("click", async () => {
+        message.hidden = false;
+        if (!prompt) {
+            const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+            if (!window.isSecureContext) {
+                message.textContent = "Abre FitTrack desde su enlace HTTPS para instalarla.";
+            } else if (ios) {
+                message.textContent = "En Safari, pulsa Compartir y luego Agregar a inicio para instalar FitTrack.";
+            } else {
+                message.textContent = "Abre el men\u00fa de Chrome o Edge y busca Instalar FitTrack o Instalar esta p\u00e1gina como una aplicaci\u00f3n. Si no aparece, vuelve a cargar la p\u00e1gina. No se descarga un APK: se instala como app web.";
             }
-
-
-            if (installMessage) {
-
-                installMessage.textContent =
-                    "¡FitTrack ya está instalada! 🎉";
-
-            }
-
+            return;
         }
-    );
-
+        const availablePrompt = prompt;
+        prompt = null;
+        button.disabled = true;
+        try {
+            await availablePrompt.prompt();
+            const result = await availablePrompt.userChoice;
+            message.textContent = result.outcome === "accepted" ? "Instalaci\u00f3n solicitada. Confirma los pasos del navegador." : "Cancelaste la instalaci\u00f3n. Puedes volver a intentarlo desde el men\u00fa del navegador.";
+        } catch (error) {
+            message.textContent = "No se pudo abrir la instalaci\u00f3n. Usa el men\u00fa de Chrome o Edge para instalar FitTrack.";
+            console.error("FitTrack install:", error);
+        } finally {
+            if (button.textContent !== "App instalada") button.disabled = false;
+        }
+    });
+    window.addEventListener("appinstalled", installed);
 }

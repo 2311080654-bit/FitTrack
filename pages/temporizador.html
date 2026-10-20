@@ -24,7 +24,7 @@
     <link
         rel="icon"
         type="image/png"
-        href="../img/icon-192.png"
+        href="../img/pwa-192.png"
     >
 
     <link
@@ -46,6 +46,7 @@
         rel="stylesheet"
         href="../css/temporizador.css"
     >
+<link rel="stylesheet" href="../css/media.css">
 </head>
 
 <body>
@@ -105,6 +106,7 @@
                     Progreso
                 </a>
 
+            <a href="./calculadora.html" class="nav-link">Calculadora</a><a href="./logros.html" class="nav-link">Logros</a>
             </nav>
 
         </div>
@@ -234,6 +236,7 @@
                 </p>
 
 
+                <div id="currentExerciseMedia"></div>
                 <div class="workout-stats">
 
                     <div class="workout-stat">
@@ -390,8 +393,11 @@
     </footer>
 
 
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/database.js"></script>
     <script src="../js/main.js"></script>
 
+    <script src="../js/media.js"></script>
     <script src="../js/temporizador.js"></script>
 
 </body>

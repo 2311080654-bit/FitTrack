@@ -216,6 +216,7 @@ document.addEventListener(
             `;
 
 
+            if (window.FitTrackMedia) article.appendChild(FitTrackMedia.create(exercise));
             return article;
 
         }
