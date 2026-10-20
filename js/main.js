@@ -131,8 +131,19 @@ async function registerServiceWorker() {
 
         const registration =
             await navigator.serviceWorker.register(
-                serviceWorkerPath
+                serviceWorkerPath,
+                { updateViaCache: "none" }
             );
+
+        const hadController = Boolean(navigator.serviceWorker.controller);
+        let reloading = false;
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+            if (hadController && !reloading) {
+                reloading = true;
+                window.location.reload();
+            }
+        });
+        registration.update().catch(error => console.warn("No se pudo comprobar la actualización:", error));
 
 
         console.log(
